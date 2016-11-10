@@ -1,7 +1,7 @@
 <!--<div class="panel panel-default">
     <div class="panel-heading">Ajouter un contact dans le carnet d'adresse</div>
     <div class="panel-body">-->
-            <form role="form" id="form_add_group" method="POST" action="<?php echo base_url() ?>feature/accueil/add_group">
+            <form role="form" id="form_add_group" method="POST" action="<?php echo base_url() ?>Utilisateurs/add_group">
                     <fieldset>
                             <div class="form-group">
                                     <input class="form-control" placeholder="Nom du groupe" name="nom" type="text" autofocus="">

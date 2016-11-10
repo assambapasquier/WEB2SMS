@@ -68,16 +68,22 @@ class MY_Model extends CI_Model{
     }
     
     public function boite_envoi($login, $passwd){
-        $this->db->select('idEnvoi, dateEnvoi, heureEnvoi, destinataire, Contacts, EnvoiMessage.idGroupe as idGrp, objet, contenu, taille, libelleStatut, '
-                . 'idContact, Contacts.nom as nomContact, numero1, libelleGroupe');
+        $this->db->select('idEnvoi, dateEnvoi, heureEnvoi, destinataire, objet, contenu, taille, libelleStatut');
         $this->db->from('EnvoiMessage');
-        $this->db->join('Contacts', 'EnvoiMessage.Contacts = Contacts.idContact');
-        $this->db->join('Groupes', 'EnvoiMessage.idGroupe = Groupes.idGroupe');
         $this->db->join('StatutEnvoi', 'StatutEnvoi.idStatutEnvoi = EnvoiMessage.idStatutEnvoi');
-        $this->db->where('EnvoiMessage.idGroupe IS NOT NULL');
-        $this->db->where('EnvoiMessage.Contacts IS NOT NULL');
         $this->db->where(array('EnvoiMessage.login ='=>$login));
         $this->db->where(array('EnvoiMessage.passwd ='=>$passwd));
+
+        $req = $this->db->get();
+        return $req->result();
+    }
+    
+    public function contact_group($login, $passwd){
+        $this->db->select('idContact, nom, prenom, numero1, ville, libelleGroupe');
+        $this->db->from('Contacts');
+        $this->db->join('Groupes', 'Groupes.idGroupe = Contacts.idGroupe');
+        $this->db->where(array('Contacts.login ='=>$login));
+        $this->db->where(array('Contacts.passwd ='=>$passwd));
 
         $req = $this->db->get();
         return $req->result();

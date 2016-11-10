@@ -187,7 +187,7 @@ class Utilisateurs extends CI_Controller{
                                     if(preg_match("/^[0-9]{9}$/", $v)){
                                         if(!$this->zagsmsSend((int)$v,$message,$debug)) $succes = false;
                                         //echo $this->session->userdata('tel');
-                                        $result = $this->envoiMessage_model->creer(array('dateEnvoi' => $today, 'heureEnvoi' => $hour, 'destinataire' => $v, 'idGroupe' => null, 'objet' => $objet, 'contenu' => $message, 'taille' => strlen($message), 'idStatutEnvoi' =>1, 'login' =>'admin', 'passwd' => 'admin'));
+                                        $result = $this->envoiMessage_model->creer(array('dateEnvoi' => $today, 'heureEnvoi' => $hour, 'destinataire' => $v, 'idGroupe' => $x, 'objet' => $objet, 'contenu' => $message, 'taille' => strlen($message), 'idStatutEnvoi' =>1, 'login' =>'admin', 'passwd' => 'admin'));
                                     }
                                     else{
                                         $succes = false;
@@ -227,12 +227,16 @@ class Utilisateurs extends CI_Controller{
         }
     }
     
-    public function carnet_adresse(){
+    public function carnet_adresses($error = ''){
         if(!$this->is_logged()){
             redirect('', 'refresh');
         }
         else{
-            
+            $this->chargerSession();
+            $this->chargerContacts($this->data['login'], $this->data['passwd']);
+            $this->chargerGroupes($this->data['login'], $this->data['passwd']);
+            $this->data['error_adr'] = $error;
+            $this->load->view('adresses', $this->data);
         }
     }
     
@@ -262,6 +266,71 @@ class Utilisateurs extends CI_Controller{
             
         }
     }
+    
+    /******************************************************ajouts*****************************************************************/
+    public function add_contact(){
+        $this->chargerSession();
+        $this->load->library('form_validation'); //pour la validation du formulaire
+        $this->form_validation->set_rules('nom','"Login"','required');
+        $this->form_validation->set_rules('prenom','"Password"','required');
+        $this->form_validation->set_rules('numero','"Mobile Number"','trim|required|regex_match[/^[0-9]{9}$/]');
+        $this->form_validation->set_rules('ville','"Ville"','required');
+        //$this->form_validation->set_rules('groupe','"Groupe"','required'); 
+        if($this->form_validation->run()){
+            $nom = $this->input->post('nom');
+            $prenom = $this->input->post('prenom');
+            $numero = $this->input->post('numero');
+            $ville = $this->input->post('ville');
+            //$groupe = $this->input->post('groupe');
+            //echo'<div class="alert alert-dismissable alert-danger"><small>'. $prenom.'</small></div>';
+            
+            $result = $this->contacts_model->creer(array('nom' => $nom, 'prenom' => $prenom, 'numero1' => $numero, 'numero2' => null, 'numero3' => null, 'ville' => $ville, 'idGroupe' => 1, 'login' =>$this->data['login'], 'passwd' => $this->data['passwd']));
+            
+            if($result){
+                redirect('Utilisateurs/carnet_adresses', 'refresh'); 
+            }
+            else{
+                //redirect('Utilisateurs/carnet_adresses', 'refresh');
+                $this->carnet_adresses("1");
+            }
+        }
+        else{
+            redirect('Utilisateurs/carnet_adresses', 'refresh');
+        }
+        
+        
+    }
+    
+    /******************************************creation d'un groupe**************************************************/
+    public function add_group(){
+        $this->chargerSession();
+        
+        $this->load->library('form_validation'); //pour la validation du formulaire
+        $this->form_validation->set_rules('nom','"Login"','required');
+        $this->form_validation->set_rules('description','"Password"','required');
+        //$today = date("Y-m-d");
+        //$hour = date("H:i:s"); 
+        
+        if ($this->form_validation->run() == FALSE){
+           echo'<div class="alert alert-dismissable alert-danger"><small>'. validation_errors().'</small></div>';
+        }
+        else{
+            $nom = $this->input->post('nom');
+            $description = $this->input->post('description');
+            $today = date("Y-m-d");
+            
+            $result = $this->groupes_model->creer(array('libelleGroupe' => $nom, 'description' => $description, 'dateCreation' => $today, 'login'=>$this->data['login'], 'passwd'=>$this->data['passwd']));
+            
+            if($result){
+                redirect('Utilisateurs/carnet_adresses', 'refresh');
+            }
+        }
+    }
+    /******************************************FIN creation d'un groupe**************************************************/
+    
+    /******************************************************fin ajouts**************************************************************/
+    
+    
     /**************************************authentification***************************************************************/
     
     public function connexion(){
@@ -339,11 +408,11 @@ class Utilisateurs extends CI_Controller{
     public function chargerContacts($login, $passwd){
         $cont[] = array();
         //$result2 = $this->lignePerms_model->get(array('Permanences'=>$idperm));
-        $result2 = $this->contacts_model->get(array('login'=>$login, 'passwd'=>$passwd));
+        $result2 = $this->contacts_model->contact_group($login, $passwd);
         $taille = 0;
         //var_dump($result2);
         foreach ($result2 as $row2){
-               $cont[$taille] = array('idContact'=>$row2->idContact, 'nom'=>$row2->nom, 'prenom'=>$row2->prenom, 'numero1'=>$row2->numero1,'idGroupe'=>$row2->idGroupe);
+               $cont[$taille] = array('idContact'=>$row2->idContact, 'nom'=>$row2->nom, 'prenom'=>$row2->prenom, 'numero1'=>$row2->numero1, 'ville'=>$row2->ville, 'libelleGroupe'=>$row2->libelleGroupe);
                //$lps[$taille] = array('id'=>$row2->id, 'date_perm'=>$row2->date_perm);
                $taille = $taille+1;  
         }
@@ -371,7 +440,11 @@ class Utilisateurs extends CI_Controller{
         $taille = 0;
         //var_dump($result2);
         foreach ($result2 as $row2){
-               $grp[$taille] = array('idGroupe'=>$row2->idGroupe, 'libelleGroupe'=>$row2->libelleGroupe, 'description'=>$row2->description);
+               $idGroupe = $row2->idGroupe;
+               $nombre = $this->contacts_model->count(array('idGroupe'=>$idGroupe));
+               if(!$nombre) $nombre = 0;
+               $grp[$taille] = array('idGroupe'=>$idGroupe.'_'.$nombre, 'libelleGroupe'=>$row2->libelleGroupe, 'description'=>$row2->description);
+               
                //$lps[$taille] = array('id'=>$row2->id, 'date_perm'=>$row2->date_perm);
                $taille = $taille+1;  
         }
@@ -398,12 +471,11 @@ class Utilisateurs extends CI_Controller{
         $result2 = $this->envoiMessage_model->boite_envoi($login, $passwd);
         
         //var_dump($result2);
+        $taille = 0;
         foreach ($result2 as $row2){
                $be[$taille] = array('idEnvoi'=>$row2->idEnvoi, 'dateEnvoi'=>$row2->dateEnvoi, 'heureEnvoi'=>$row2->heureEnvoi,
-                   'destinataire'=>$row2->destinataire, 'Contacts'=>$row2->Contacts, 'idGrp'=>$row2->idGrp,
-                   'objet'=>$row2->objet, 'contenu'=>$row2->contenu, 'taille'=>$row2->taille,
-                   'libelleStatut'=>$row2->libelleStatut, 'idContact'=>$row2->idContact, 'nomContact'=>$row2->nomContact,
-                   'numero1'=>$row2->numero1, 'idGroupe'=>$row2->idGroupe, 'libelleGroupe'=>$row2->libelleGroupe);
+                   'destinataire'=>$row2->destinataire, 'objet'=>$row2->objet, 'contenu'=>$row2->contenu, 'taille'=>$row2->taille,
+                   'libelleStatut'=>$row2->libelleStatut);
                //$lps[$taille] = array('id'=>$row2->id, 'date_perm'=>$row2->date_perm);
                $taille = $taille+1;  
         }

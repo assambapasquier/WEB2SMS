@@ -9,13 +9,13 @@
                     <thead>
                     <tr>
                         <th data-field="state" data-checkbox="true" ></th>
+                        <th data-field="id" style="display:none">ID</th>
                         <th data-field="nom" data-sortable="true"><span style="color:rgb(0,132,232);">Noms</span></th>
                         <th data-field="prenom"  data-sortable="true"><span style="color:rgb(0,132,232);">Prenoms</span></th>
                         <th data-field="tel1" data-sortable="true"><span style="color:rgb(0,132,232);">Tel1</span></th>
-                                <th data-field="tel2" data-sortable="true"><span style="color:rgb(0,132,232);">Tel2</span></th>
-                                
-                                <th data-field="groupe" data-sortable="true"><span style="color:rgb(0,132,232);">Groupes</span></th>
-                                <th data-field="action" data-sortable="true"><span style="color:rgb(0,132,232);">Actions</span></th>
+                        <th data-field="ville" data-sortable="true"><span style="color:rgb(0,132,232);">Villes</span></th>
+                        <th data-field="groupe" data-sortable="true"><span style="color:rgb(0,132,232);">Groupes</span></th>
+                        <th data-field="action" data-sortable="true"><span style="color:rgb(0,132,232);">Actions</span></th>
                     </tr>
                     </thead>
                     <!--foreach ($a as $v1) {

@@ -183,6 +183,12 @@
         
         </script>
         
+        <!-------------chacher les colonnes d'un tableau-->
+        <script>
+            $('td:nth-child(1)').hide();
+            $('th:nth-child(1)').hide();
+        </script>
+        
 </body>
 
 </html>

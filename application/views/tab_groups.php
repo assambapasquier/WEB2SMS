@@ -21,8 +21,9 @@
                                                     <span><strong>'; echo $v1['libelleGroupe']; echo' </strong></span><br/><small>'; echo $v1['description']; echo '</small>
                                             </div>
                                             <div class="col-sm-5 col-lg-5 widget-center">
-                                                    <div class="large">12</div>
-                                                    <div class="text-muted"><strong><span style="color:black;"><small>Contacts</small></span></strong></div>
+                                                    
+                                                    <div class="text-muted"><strong><span style="color:black;">'; $n = explode('_', $v1['idGroupe']); echo '<h3 style="color:red">'.$n[1].'</h3>';
+                                                    echo '<small>Contacts</small></span></strong></div>
                                             </div>
                                             <div class="col-sm-2 col-lg-2">
                                                 <a class="btn btn-link" class="buton-del" title="modifier le groupe" onclick="alert("sometext");"><i class="fa fa-edit fa-fw" class="buton-del"></i></a>

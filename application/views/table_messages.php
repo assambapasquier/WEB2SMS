@@ -11,7 +11,7 @@
                     <th data-field="date" data-sortable="true"><span style="color:rgb(0,132,232);">Dates</span></th>
                     <th data-field="objet"  data-sortable="true"><span style="color:rgb(0,132,232);">Objets</span></th>
                     <th data-field="message" data-sortable="true"><span style="color:rgb(0,132,232);">Messages</span></th>
-                    <th data-field="message" data-sortable="true"><span style="color:rgb(0,132,232);">Destinataire</span></th>
+                    <th data-field="dest" data-sortable="true"><span style="color:rgb(0,132,232);">Destinataires</span></th>
                     <th data-field="statut" data-sortable="true"><span style="color:rgb(0,132,232);">Statuts</span></th>
                     <th data-field="Action" data-sortable="true"><span style="color:rgb(0,132,232);">Actions</span></th>
                 </tr>
@@ -28,10 +28,11 @@
                                             echo '<td>'.$v1['dateEnvoi'].'</td>';
                                             echo '<td>'.$v1['objet'].'</td>';
                                             echo '<td>'.$v1['contenu'].'</td>';
-                                            echo '<td>'.$v1['numero1'].'</td>';
+                                            echo '<td>'.$v1['destinataire'].'</td>';
                                             echo '<td>'.$v1['libelleStatut'].'</td>';
                                            if($v1!==array()){
                                            echo '<td class="center">
+                                                    <a class="btn btn-link" title="consulter"><i class="fa fa-eye fa-fw"></i></a>
                                                     <a class="btn btn-link" title="envoyer de nouveau"><i class="fa fa-paper-plane fa-fw"></i></a>
                                                     <a class="btn btn-link" class="buton-del" title="supprimer"><i class="fa fa-times fa-fw" class="buton-del"></i></a>
                                                 </td>';

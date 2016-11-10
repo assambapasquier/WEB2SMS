@@ -46,6 +46,17 @@
 		
 		<div class="row">
 			<div class="col-xs-12 col-md-8 col-lg-8">
+                                <?php
+                                    if(isset($error_adr) && $error_adr!==null){
+                                        if($error_adr == "1"){
+                                            echo '<div class="alert alert-dismissable alert-danger"><small>Echec d\'ajout du contact. Veuillez reessayer SVP</small></div>';
+                                        }
+                                        else{
+                                            echo '<div class="alert alert-dismissable alert-success"><small>Le contact a été ajouté avec succès</small></div>';
+                                        }
+                                    }
+                                    
+                               ?>
 				<?php include('tab_contacts.php'); ?>
 			</div>	
 		
@@ -113,35 +124,6 @@
 	});
 	</script>
 	
-	<script>
-        
-        $(function(){
-        $( "#form_add_contact" ).submit(function( event ) {
-            $("#ret").html('<img src="<?php echo base_url() ?>asset/loader.GIF"/>');
-            var self = $(this);
-            var url = self.attr('action');
-            console.log(url);
-            $.ajax({
-                url: url,
-                data: self.serialize(),
-                type: self.attr('method')
-              }).done(function(data) {
-                  if(data !=='')
-                      {
-                  $("#ret").html(data);
-                //$('#form_add_contact')[0].reset();
-                      }
-                      else
-                          {
-                           window.location.href='<?php echo base_url() ?>feature/accueil/carnet_adresses';   
-                          }
-              });
-            event.preventDefault();
-        });
-    });
-        
-        </script>
-        
         <!---------------------------------script for table row----------------------------->
         <script>
             $(function(){
