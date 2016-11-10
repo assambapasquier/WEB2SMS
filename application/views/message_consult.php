@@ -46,12 +46,20 @@
 		
 		<div class="row">
 			<div class="col-xs-12 col-md-8 col-lg-8">
-				<?php include('table_messages.php'); ?>
+                                
+				<?php 
+                                    if(isset($message_sent) && $message_sent!==null){
+                                        if($message_sent == "OK"){
+                                            echo '<div class="alert alert-dismissable alert-success"><small>Message envoyé avec succes</small></div>';
+                                        }
+                                    }
+                                    include('table_messages.php'); 
+                                ?>
 			</div>	
 		
 		<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
 				<div class="panel panel-default">
-					<div class="panel-heading"><span style="color:rgb(0,132,232);">Informations</span></div>
+					<div class="panel-heading"><span style="color:rgb(0,132,232);">Statistiques</span></div>
 					<div class="panel-body">
 						<div class="row">
 							<div class="panel panel-blue panel-widget ">
@@ -60,7 +68,7 @@
 										<span> Messages envoyés</span>
 									</div>
 									<div class="col-sm-6 col-lg-6 widget-right">
-										<div class="large">12</div>
+										<div class="large"><?php echo $nbre_envoi; ?></div>
 										<div class="text-muted"><strong><span style="color:black;"><small>Messages</small></span></strong></div>
 									</div>
 								</div>
@@ -74,7 +82,7 @@
 										<span> Votre credit (nombre de SMS restant)</span>
 									</div>
 									<div class="col-sm-6 col-lg-6 widget-right">
-										<div class="large">12</div>
+										<div class="large"><?php echo $credit; ?></div>
 										<div class="text-muted"><strong><span style="color:black;"><small>Messages</small></span></strong></div>
 									</div>
 								</div>
@@ -85,11 +93,11 @@
 							<div class="panel panel-blue panel-widget ">
 								<div class="row no-padding">
 									<div class="col-sm-6 col-lg-6 widget-left">
-										<span> Nombre de recharge</span>
+										<span> Nombre de recharges</span>
 									</div>
 									<div class="col-sm-6 col-lg-6 widget-right">
-										<div class="large">12</div>
-										<div class="text-muted"><strong><span style="color:black;"><small>Messages</small></span></strong></div>
+										<div class="large"><?php echo $nbre_approv; ?></div>
+										<div class="text-muted"><strong><span style="color:black;"><small>Recharges</small></span></strong></div>
 									</div>
 								</div>
 							</div>

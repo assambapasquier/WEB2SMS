@@ -43,7 +43,7 @@
 		
 	</nav>
 		
-	<?php include('menuGauche.php'); ?>
+	<?php include('menuGauche0.php'); ?>
 	
 		
 	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
@@ -56,13 +56,20 @@
 		
 		<div class="row">
 			<div class="col-lg-12">
-				<h1 class="page-header">Le WEB2SMS</h1>
+				<h1 class="page-header">WEB2SMS</h1>
 			</div>
 		</div><!--/.row-->
 		
 		<div class="row">
+                        
 			<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-				<?php include('login.php'); ?>
+                            <?php
+                                if($error!=null){
+                                    echo'<div class="alert alert-dismissable alert-danger"><small>Vos informations d\'authetification ne sont pas correctes</small></div>';
+                                }
+                            ?>
+                            
+                            <?php include('login.php'); ?>
 			</div>
                     
                         <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
@@ -181,7 +188,7 @@
         <script>
         
         $(function(){
-        $( "#form_login" ).submit(function( event ) {
+        /*$( "#form_login" ).submit(function( event ) {
             $("#ret").html('<img src="<?php echo base_url() ?>asset/loader.GIF"/>');
             var self = $(this);
             var url = self.attr('action');
@@ -202,7 +209,7 @@
                           }
               });
             event.preventDefault();
-        });
+        });*/
     });
         
         </script>

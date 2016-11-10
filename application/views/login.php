@@ -3,11 +3,9 @@
         <div class="panel-heading">Log in</div>
         <div class="panel-body">
                
-                <p id="ret">
-                        
-                </p>
+               
                 
-               <form  id="form_login" method="POST" action="<?php echo base_url() ?>Utilisateurs/login">
+               <form  id="form_login" method="POST" action="<?php echo base_url() ?>Utilisateurs/connexion">
                         <fieldset>
                                 <div class="form-group">
                                         <input class="form-control" placeholder="login" name="login" type="text" autofocus="">
@@ -29,5 +27,7 @@
                                 <button class="btn btn-lg btn-primary btn-block" type="submit">Se connecter</button>
                         </fieldset>
                 </form>
+                <hr>
+                <a href="#">Nous contacter pour la souscription au service </a> 
         </div>
 </div>

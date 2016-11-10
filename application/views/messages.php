@@ -58,7 +58,7 @@
 		
 		<div class="col-xs-12 col-md-6 col-lg-6">
 			<div class="row">
-                                <a href="<?php echo base_url() ?>feature/accueil/boite_envoi" data-confirm="Etes-vous certains de vouloir consulter les messages envoyés?">
+                                <a href="<?php echo base_url() ?>Utilisateurs/boite_envoi" data-confirm="Etes-vous certains de vouloir annuler l'envoi du messages?">
                                 <div class="col-xs-12 col-md-6 col-lg-6">
                                         <div class="panel panel-blue panel-widget ">
                                                 <div class="row no-padding">
@@ -77,7 +77,7 @@
 				
 				<div class="row">
 				
-					<a href="#">
+					<a href="<?php echo base_url() ?>Utilisateurs/boite_envoi" data-confirm="Etes-vous certains de vouloir annuler l'envoi du messages?">
 					<div class="col-xs-12 col-md-6 col-lg-6">
 						<div class="panel panel-red panel-widget ">
 							<div class="row no-padding">
@@ -100,6 +100,9 @@
 		
 		<!-----------modal choix contact--------------------------------------------------------------------->
                     <?php include('modal_select_contacts.php'); ?>
+		<!---------------------------------------------------------------------------------------------->
+                <!-----------modal choix contact--------------------------------------------------------------------->
+                    <?php include('modal_select_group.php'); ?>
 		<!---------------------------------------------------------------------------------------------->
                 <!-----------modal choix contact--------------------------------------------------------------------->
                     <?php //include('modal_select_time.php'); ?>
