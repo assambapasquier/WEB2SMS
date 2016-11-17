@@ -51,13 +51,12 @@
                                         if($error_adr == "1"){
                                             echo '<div class="alert alert-dismissable alert-danger"><small>Echec d\'ajout du contact. Veuillez reessayer SVP</small></div>';
                                         }
-                                        else{
-                                            echo '<div class="alert alert-dismissable alert-success"><small>Le contact a été ajouté avec succès</small></div>';
-                                        }
+                                        
                                     }
                                     
                                ?>
 				<?php include('tab_contacts.php'); ?>
+                            
 			</div>	
 		
                         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
@@ -74,6 +73,13 @@
                 
                 <!-----------modal add groupe--------------------------------------------------------------------->
 		<?php include('modal_add_group.php'); ?>
+		<!---------------------------------------------------------------------------------------------->
+                
+                <!-----------modal update adr--------------------------------------------------------------------->
+		<?php include('modal_update_adr.php'); ?>
+		<!---------------------------------------------------------------------------------------------->
+                <!-----------modal update adr--------------------------------------------------------------------->
+		<?php include('modal_import_adr.php'); ?>
 		<!---------------------------------------------------------------------------------------------->
 			
 	</div>	<!--/.main-->
@@ -124,19 +130,36 @@
 	});
 	</script>
 	
-        <!---------------------------------script for table row----------------------------->
+        
+        <!-----------------------------update en cliquant dans une tableau---------------------------->
         <script>
-            $(function(){
-                $('a[buton-del]').click(function ( event ) {
-                    var nom = $($this).closest("tr").find('td:eq(0)').text();
-                    var prenom = $($this).closest("tr").find('td:eq(1)').text();
-                    var numero1 = $($this).closest("tr").find('td:eq(2)').text();
-                    <?php echo "alert(nom)"; ?>
-                    //alert(id);
-                    //window.location.href='<?php echo base_url() ?>feature/accueil/del_contact/'+nom+'/'+prenom+'/'+numero1;
-                    window.location.href='<?php echo base_url() ?>feature/accueil';
-
-                });
+            $('.edition').click(function(){
+            var row = $(this).closest('tr');
+                cells = row.find('td');
+                id = cells.eq(1).html();
+                libelle = cells.eq(2).html();
+                //alert(libelle);
+                //$(e.currentTarget).find('input[name="bookId"]').val(bookId);
+                //$(".identifiant").val(id);
+                //$(".lib").val(libelle);
+                //$('#UpdateAdr').modal({show:true});
+                $('#UpdateAdr').modal('show'); 
+            });
+            
+        </script>
+        
+        <script>
+            $('.supprimer').click(function(){
+            var row = $(this).closest('tr');
+                cells = row.find('td');
+                id = cells.eq(1).html();
+                libelle = cells.eq(2).html();
+                
+                //$(e.currentTarget).find('input[name="bookId"]').val(bookId);
+                $(".identifiant").val(id);
+                $(".lib").val(libelle);
+                
+                $('#SupprAdr').modal('show'); 
             });
         </script>
         

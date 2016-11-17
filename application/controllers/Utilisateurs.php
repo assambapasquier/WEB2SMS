@@ -263,7 +263,13 @@ class Utilisateurs extends CI_Controller{
             redirect('', 'refresh');
         }
         else{
-            
+            $data = array(
+                'tel' => $this->session->userdata('tel'),
+                'nom' => $this->session->userdata('nom'),
+                'prenom' => $this->session->userdata('prenom'),
+                'credit' => $this->session->userdata('credit')
+            );
+            $this->load->view('profile', $data);
         }
     }
     
@@ -326,6 +332,10 @@ class Utilisateurs extends CI_Controller{
             }
         }
     }
+    
+    public function import_contacts(){
+        echo 'we are developping that fuctionality.';
+    }
     /******************************************FIN creation d'un groupe**************************************************/
     
     /******************************************************fin ajouts**************************************************************/
@@ -355,7 +365,8 @@ class Utilisateurs extends CI_Controller{
                     'numeroDoc' => $result[0]->numeroDoc,
                     'isLoggedIn'=>TRUE
                 );
-                $this->session->set_userdata($this->data);
+                $this->session->set_userdata('user_data', $this->data);
+                
                 redirect('Utilisateurs/accueil', 'refresh');
             }
             else{
@@ -371,13 +382,8 @@ class Utilisateurs extends CI_Controller{
     }
     
     private function is_logged(){
-        if($this->session->userdata('isLoggedIn')!==null && $this->session->userdata('isLoggedIn')){
-            return TRUE;
-        }
-        else{
-            return FALSE;
-        }
-        
+        $user = $this->session->userdata('user_data');
+        return isset($user);
     }
     
 

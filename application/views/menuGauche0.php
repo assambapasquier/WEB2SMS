@@ -7,13 +7,7 @@
         <ul class="nav menu">
                 <li class="active"><a href="<?php echo base_url() ?>"><i class="fa fa-home"></i> &nbsp;&nbsp;&nbsp;Accueil</a></li>
                 <li><a href="#"><i class="fa fa-edit"></i> &nbsp;&nbsp;&nbsp;A Propos</a></li>
-                <li><a href="<?php echo base_url(); ?>Utilisateurs/profile"><i class="fa fa-user"></i>&nbsp;&nbsp;&nbsp;Mon Profil</a></li>
-                <li><a href="<?php echo base_url(); ?>Utilisateurs/boite_envoi"><i class="fa fa-envelope icon"></i>&nbsp;&nbsp;&nbsp;Messages</a></li>
-                <li><a href="<?php echo base_url(); ?>Utilisateurs/carnet_adresses"><i class="fa fa-book"></i>&nbsp;&nbsp;&nbsp;Mes Adresses</a></li>
-                <li><a href="#"><i class="fa fa-file-archive-o"></i>&nbsp;&nbsp;&nbsp;Archives</a></li>
-                <li><a href="#"><i class="fa fa-cogs"></i> &nbsp;&nbsp;&nbsp;Statistiques</a></li>
-                <li><a href="#"><i class="fa fa-money"></i> &nbsp;&nbsp;&nbsp;Approvisionnement</a></li>
-                <li><a href="#"><i class="fa fa-star"></i> &nbsp;&nbsp;&nbsp;Autres</a></li>
+           
 
                 <!--<li class="parent ">
                         <a href="#">

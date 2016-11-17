@@ -48,7 +48,7 @@
 			<div class="col-lg-5 col-md-5 col-sm-12 col-xs-12 col-lg-offset-3">
 				<div class="panel panel-info">
 					<div class="panel-heading">
-						Votre profile:
+						Votre profile: 
 					</div>
 					<div class="panel-body">
 						<div class ="row">
@@ -58,31 +58,31 @@
 						</div>
 						<div class ="row">
 							<div class="col-sm-12 col-lg-12">
-								NOM:
+								NOM: <span style="color:rgb(0,162,232);"><?php if(isset($nom))  echo $nom; ?></span>
 								<hr>
 							</div>
 						</div>
 						<div class ="row">
 							<div class="col-sm-12 col-lg-12 ">
-								PRENOM:
+								PRENOM: <span style="color:rgb(0,162,232);"><?php if(isset($prenom))  echo $prenom; ?></span>
 								<hr>
 							</div>
 						</div>
 						<div class ="row">
 							<div class="col-sm-12 col-lg-12">
-								TELEPHONE:
+								TELEPHONE: <span style="color:rgb(0,162,232);"><?php if(isset($tel))  echo $tel; ?></span>
 								<hr>
 							</div>
 						</div>
 						<div class ="row">
 							<div class="col-sm-12 col-lg-12">
-								E-MAIL:
+								E-MAIL: <span style="color:rgb(0,162,232);"><?php if(isset($email))  echo $email; ?></span>
 								<hr>								
 							</div>
 						</div>
 						<div class ="row">
 							<div class="col-sm-12 col-lg-12">
-								LOGIN:								<hr>
+                                                            USER NAME: <span style="color:rgb(0,162,232);"><?php if(isset($login))  echo $login; ?></span>						<hr>
 							</div>
 						</div>
 						<div class ="row">
